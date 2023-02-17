@@ -223,7 +223,7 @@ public class updateappointmentscreencontroller implements Initializable {
                 int custId = Integer.parseInt(customer_Id);
 
                 if (LocalDateTime.of(date, endTimeDropDownBox.getValue()).isAfter(LocalDateTime.of(date, startTimeDropDownBox.getValue()))) {
-
+                    //This could be the issue with the appointments overlapping
                     Appointment newAppoint = new Appointment(appointment_Id, title, description, location, contact.getContact_Id(), contact.getContactName(), type, start, end, custId, userId.getUser_Id());
 
                     if (DBAccessAppointments.checkOverlappingAppointments(newAppoint)) {
