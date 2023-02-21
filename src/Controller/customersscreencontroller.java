@@ -1,5 +1,6 @@
 package Controller;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ import DBAccessObj.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -52,6 +54,8 @@ public class customersscreencontroller implements Initializable {
     private TableColumn<Customer, String> postalCodeCol;
     @FXML
     private TableColumn<Customer, String> phoneCol;
+    @FXML
+    private TableColumn<Customer, String> countryCol;
 
 
 
@@ -64,6 +68,13 @@ public class customersscreencontroller implements Initializable {
 
 
     /**
+     * Static variables & methods
+     */
+    static ObservableList<Customer> custs;
+
+
+
+    /**
      * This method will delete a customer from the database.
      *
      * @param event clicking the delete customer button.
@@ -72,10 +83,12 @@ public class customersscreencontroller implements Initializable {
     @FXML
     void onActionDeleteCustomer(ActionEvent event) throws IOException {
 
-        if (customerTable.getSelectionModel().isEmpty()) {
+        Customer customertoDelete = customerTable.getSelectionModel().getSelectedItem();
+
+        if (customerTable.getSelectionModel().getSelectedItem() == null) {
 
             Alert alertUserMsg = new Alert(Alert.AlertType.ERROR);
-            alertUserMsg.setHeaderText("PLEASE SELECT A CUSTOMER TO DELETE.");
+            alertUserMsg.setHeaderText("PLEASE SELECT A CUSTOMER TO DELETE!");
             alertUserMsg.setContentText("No customer was selected to delete.");
 
             Optional<ButtonType> result = alertUserMsg.showAndWait();
@@ -90,32 +103,106 @@ public class customersscreencontroller implements Initializable {
 
             Optional<ButtonType> result = alertUserMsg2.showAndWait();
 
-            if (result.isPresent() && result.get() == ButtonType.OK) {
+            if (result.isPresent() && (result.get() == ButtonType.OK)) {
 
+                try {
+
+                    boolean valid = checkApptsBeforeDeleting(customertoDelete);
+
+                    if (valid) {
+
+                        boolean deleteWasSuccessful = DBAccessCustomers.deleteCustomer(customerTable.getSelectionModel().getSelectedItem().getCustomer_Id());
+
+                        if (deleteWasSuccessful) {
+
+                            custs = DBAccessCustomers.getAllCustomers();
+                            customerTable.setItems(custs);
+                            customerTable.refresh();
+
+                        }
+
+                        else {
+
+                            Alert alertUserMsg3 = new Alert(Alert.AlertType.ERROR);
+                            alertUserMsg3.setTitle("Error!");
+                            alertUserMsg3.setContentText("Customer could not be deleted. Please try again.");
+                            alertUserMsg3.showAndWait();
+
+                        }
+
+                    }
+
+                    else {
+
+                        Alert alertUserMsg4 = new Alert(Alert.AlertType.ERROR);
+                        alertUserMsg4.setTitle("Error!");
+                        alertUserMsg4.setContentText("Customer has existing appointments, cannot be deleted!");
+                        alertUserMsg4.showAndWait();
+
+                    }
+
+                }
+
+                catch (SQLException expt) {
+
+                    expt.printStackTrace();
+
+                }
+
+            }
+
+        }
+
+
+           /* if (result.isPresent() && result.get() == ButtonType.OK) {
                 int customerId = customerTable.getSelectionModel().getSelectedItem().getCustomer_Id();
-
                 DBAccessCustomers.deleteCustomer(customerId);
-
                 customerTable.setItems(DBAccessCustomers.getAllCustomers());
-
 
                 Alert alertUserMsg3 = new Alert(Alert.AlertType.INFORMATION);
                 alertUserMsg3.setHeaderText("DELETED!");
                 alertUserMsg3.setContentText("Customer deleted.");
-
                 alertUserMsg3.showAndWait();
+            }
+            else {
+                Alert alertUserMsg4 = new Alert(Alert.AlertType.INFORMATION);
+                alertUserMsg4.setHeaderText("NOT DELETED!");
+                alertUserMsg4.setContentText("Customer not deleted.");
+                alertUserMsg4.showAndWait();
+            }
+        } */
 
+    }
+
+
+
+    /** This method will be assist in checking to see if the customers has appointments scheduled before it can be deleted.
+     * @param checkForThisCustomer checkForThisCustomer
+     * @return will return true: if the customer can be deleted, false: if not
+     */
+    private boolean checkApptsBeforeDeleting(Customer checkForThisCustomer) {
+
+        try {
+
+            ObservableList appointments = DBAccessAppointments.getApptsByCustomerId(checkForThisCustomer.getCustomer_Id());
+
+            if (appointments != null && appointments.size() < 1) {
+
+                return true;
             }
 
             else {
 
-                Alert alertUserMsg4 = new Alert(Alert.AlertType.INFORMATION);
-                alertUserMsg4.setHeaderText("NOT DELETED!");
-                alertUserMsg4.setContentText("Customer not deleted.");
-
-                alertUserMsg4.showAndWait();
+                return false;
 
             }
+
+        }
+
+        catch (SQLException expt){
+
+            expt.printStackTrace();
+            return false;
 
         }
 
@@ -150,17 +237,9 @@ public class customersscreencontroller implements Initializable {
     @FXML
     void onActionGoToUpdateCustomer(ActionEvent event) throws IOException {
 
-        if (customerTable.getSelectionModel().isEmpty()) {
+        updatecustomerscreencontroller.customerToBeSentToUpdate(customerTable.getSelectionModel().getSelectedItem());
 
-            Alert alertUserMsg5 = new Alert(Alert.AlertType.ERROR);
-            alertUserMsg5.setHeaderText("PLEASE SELECT A CUSTOMER.");
-            alertUserMsg5.setContentText("No customer was selected to update.");
-
-            Optional<ButtonType> result = alertUserMsg5.showAndWait();
-
-        }
-
-        else {
+        if (customerTable.getSelectionModel().getSelectedItem() != null ) {
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("../view/updatecustomerscreen.fxml"));
@@ -173,6 +252,17 @@ public class customersscreencontroller implements Initializable {
             Parent scene = loader.getRoot();
             stage.setScene(new Scene(scene));
             stage.show();
+
+        }
+
+        else {
+
+            Alert alertUserMsg5 = new Alert(Alert.AlertType.ERROR);
+            alertUserMsg5.setHeaderText("PLEASE SELECT A CUSTOMER.");
+            alertUserMsg5.setContentText("No customer was selected to update.");
+
+            Optional<ButtonType> result = alertUserMsg5.showAndWait();
+
 
         }
 
@@ -206,14 +296,45 @@ public class customersscreencontroller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
+     /*   try {
+
+            custs = DBAccessCustomers.getAllCustomers();
+            customerTable.setItems(custs);
+            customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+            customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+            addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
+            postalCodeCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+            phoneCol.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+            divisionCol.setCellValueFactory(new PropertyValueFactory<>("division"));
+            countryCol.setCellValueFactory(new PropertyValueFactory<>("country"));
+
+        }
+
+        catch (SQLException e) {
+
+            e.printStackTrace();
+
+        }  */
+
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
         divisionCol.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
         postalCodeCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        countryCol.setCellValueFactory(new PropertyValueFactory<>("country"));
 
-        customerTable.setItems(DBAccessCustomers.getAllCustomers());
+        try {
+
+            customerTable.setItems(DBAccessCustomers.getAllCustomers());
+
+        }
+
+        catch (SQLException throwables) {
+
+            throwables.printStackTrace();
+        }
 
     }
 

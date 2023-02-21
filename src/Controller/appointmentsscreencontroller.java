@@ -1,6 +1,7 @@
 package Controller;
 
 import DBAccessObj.DBAccessAppointments;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ import Model.Appointment;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -50,6 +52,8 @@ public class appointmentsscreencontroller implements Initializable {
     @FXML
     private ToggleGroup radioButtonToggleGroup;
     @FXML
+    private ToggleGroup viewToggleGroup;
+    @FXML
     private TableView<Appointment> appointmentsTable;
     @FXML
     private TableColumn<Appointment, Integer> appointmentIdCol;
@@ -74,6 +78,7 @@ public class appointmentsscreencontroller implements Initializable {
 
 
 
+
     /**
      * Variables for stages and scenes.
      */
@@ -83,12 +88,20 @@ public class appointmentsscreencontroller implements Initializable {
 
 
     /**
+     * Static variables & methods
+     */
+    static ObservableList<Appointment> appt;
+
+
+
+    /**
      * This method will show all appointments in the table.
      *
      * @param event clicking on "all" radio button
+     * @throws SQLException
      */
     @FXML
-    void onActionViewAll(ActionEvent event) {
+    void onActionViewAll(ActionEvent event) throws SQLException {
 
         appointmentsTable.setItems(DBAccessAppointments.getAllAppointments());
 
@@ -100,9 +113,10 @@ public class appointmentsscreencontroller implements Initializable {
      * This method will show current month appointments in the table.
      *
      * @param event clicking on "current month" radio button
+     * @throws SQLException
      */
     @FXML
-    void onActionViewByMonth(ActionEvent event) {
+    void onActionViewByMonth(ActionEvent event) throws SQLException {
 
         appointmentsTable.setItems(DBAccessAppointments.getMonthAppointments());
 
@@ -114,9 +128,10 @@ public class appointmentsscreencontroller implements Initializable {
      * This method will show current week appointments in the table.
      *
      * @param event clicking on "current week" radio button
+     * @throws SQLException
      */
     @FXML
-    void onActionViewByWeek(ActionEvent event) {
+    void onActionViewByWeek(ActionEvent event) throws SQLException {
 
         appointmentsTable.setItems(DBAccessAppointments.getWeekAppointments());
 
@@ -131,9 +146,11 @@ public class appointmentsscreencontroller implements Initializable {
      * @throws IOException
      */
     @FXML
-    void onActionGoToDeleteAppointment(ActionEvent event) throws IOException {
+    void onActionGoToDeleteAppointment(ActionEvent event) throws IOException, SQLException {
 
-        if (appointmentsTable.getSelectionModel().isEmpty()) {
+        Appointment appointmentToDelete = appointmentsTable.getSelectionModel().getSelectedItem();
+
+        if (appointmentsTable.getSelectionModel().getSelectedItem() == null) {
 
             Alert alertUserMsg = new Alert(Alert.AlertType.ERROR);
             alertUserMsg.setHeaderText("PLEASE SELECT AN APPOINTMENT!");
@@ -214,17 +231,9 @@ public class appointmentsscreencontroller implements Initializable {
     @FXML
     void onActionGoToUpdateAppointment(ActionEvent event) throws IOException {
 
-        if (appointmentsTable.getSelectionModel().isEmpty()) {
+        updateappointmentscreencontroller.appointmentToBeSentToUpdate(appointmentsTable.getSelectionModel().getSelectedItem());
 
-            Alert alertUserMsg5 = new Alert(Alert.AlertType.ERROR);
-            alertUserMsg5.setHeaderText("PLEASE SELECT AN APPOINTMENT!");
-            alertUserMsg5.setContentText("No appointment was selected to update.");
-
-            Optional<ButtonType> result = alertUserMsg5.showAndWait();
-
-        }
-
-        else {
+        if (appointmentsTable.getSelectionModel().getSelectedItem() != null) {
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("../view/updateappointmentscreen.fxml"));
@@ -238,6 +247,16 @@ public class appointmentsscreencontroller implements Initializable {
             Parent scene = loader.getRoot();
             stage.setScene(new Scene(scene));
             stage.show();
+
+        }
+
+        else {
+
+            Alert alertUserMsg5 = new Alert(Alert.AlertType.ERROR);
+            alertUserMsg5.setHeaderText("PLEASE SELECT AN APPOINTMENT!");
+            alertUserMsg5.setContentText("No appointment was selected to update.");
+
+            Optional<ButtonType> result = alertUserMsg5.showAndWait();
 
         }
 
@@ -272,9 +291,40 @@ public class appointmentsscreencontroller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        viewAllRadioButton.setSelected(true);
+        //AllRadioButton.setToggleGroup(ToggleView);
+        //WeekRadioButton.setToggleGroup(ToggleView);
+        //MonthRadioButton.setToggleGroup(ToggleView);
 
-        appointmentIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        //viewAllRadioButton.setSelected(true);
+
+        try {
+
+            appt = DBAccessAppointments.getAllAppointments();
+
+            appointmentsTable.setItems(appt);
+            appointmentIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+            titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+            descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+            locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+            contactCol.setCellValueFactory(new PropertyValueFactory<>("contactName"));
+            typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+            startCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+            endCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+            customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+            userIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
+
+        }
+
+        catch (SQLException e) {
+
+            e.printStackTrace();
+
+        }
+
+
+        //viewAllRadioButton.setSelected(true);
+
+       /* appointmentIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         locationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -285,7 +335,7 @@ public class appointmentsscreencontroller implements Initializable {
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         userIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
-        appointmentsTable.setItems(DBAccessAppointments.getAllAppointments());
+        appointmentsTable.setItems(DBAccessAppointments.getAllAppointments());  */
 
     }
 

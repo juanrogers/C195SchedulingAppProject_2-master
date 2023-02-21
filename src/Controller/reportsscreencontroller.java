@@ -18,6 +18,7 @@ import DBAccessObj.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
@@ -77,6 +78,8 @@ public class reportsscreencontroller implements Initializable {
     private TableColumn<Appointment, Integer> custIdColForRep;
     @FXML
     private Label numOfCustomersTabLabel;
+    @FXML
+    private Label apptByMonAndTypeTab;
     @FXML
     private Button numOfCustGenRepButton;
     @FXML
@@ -150,9 +153,10 @@ public class reportsscreencontroller implements Initializable {
      * -----> Lambda comment - The lambda expression implemented here is used to filter the appointments list by contact id, searching for all appointments for a specific contact selected.
      *
      * @param event clicking the button for generate report
+     * @throws SQLException SQLException
      */
     @FXML
-    void onActionConSceGenRep(ActionEvent event) {
+    void onActionConSceGenRep(ActionEvent event) throws SQLException {
 
         Contact contact = contactDropDownBox.getValue();
 
@@ -182,9 +186,10 @@ public class reportsscreencontroller implements Initializable {
      * This method will run and display the total number of appointments.
      *
      * @param event clicking the button for generate report
+     * @throws SQLException SQLException
      */
     @FXML
-    void onActionNumOfCustGenRep(ActionEvent event) {
+    void onActionNumOfCustGenRep(ActionEvent event) throws SQLException {
 
         numOfTotCustResultLabel.setText(String.valueOf(DBAccessCustomers.getAllCustomers().size()));
 

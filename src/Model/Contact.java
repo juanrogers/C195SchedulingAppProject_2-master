@@ -99,12 +99,12 @@ public class Contact {
 
     /**
      * @return This will return a contact name for use within a dropdown box.
-     */
+     *
     @Override
     public String toString() {
 
         return (contactName);
 
-    }
+    } */
 
 }

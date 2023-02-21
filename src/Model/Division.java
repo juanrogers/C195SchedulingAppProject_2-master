@@ -45,7 +45,7 @@ public class Division {
     /**
      * @return will return the divisionName
      */
-    public String getName() {
+    public String getDivisionName() {
 
         return divisionName;
 
@@ -97,12 +97,12 @@ public class Division {
 
     /**
      * @return This will return a division name for use within a dropdown box.
-     */
+     *
     @Override
     public String toString() {
 
         return (divisionName);
 
-    }
+    } */
 
 }

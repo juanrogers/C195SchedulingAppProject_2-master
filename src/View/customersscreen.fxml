@@ -26,12 +26,13 @@
         </Button>
         <TableView fx:id="customerTable" layoutX="10.0" layoutY="200.0" prefHeight="390.0" prefWidth="980.0">
             <columns>
-                <TableColumn fx:id="customerIdCol" minWidth="100.0" prefWidth="163.33" text="Customer ID" />
-                <TableColumn fx:id="customerNameCol" prefWidth="163.33" text="Customer Name" />
-                <TableColumn fx:id="addressCol" prefWidth="163.33" text="Address" />
-                <TableColumn fx:id="divisionCol" prefWidth="163.33" text="Division" />
-                <TableColumn fx:id="postalCodeCol" prefWidth="163.33" text="Postal Code" />
-                <TableColumn fx:id="phoneCol" prefWidth="163.35" text="Phone" />
+                <TableColumn fx:id="customerIdCol" minWidth="96.0" prefWidth="96.0" text="Customer ID" />
+                <TableColumn fx:id="customerNameCol" prefWidth="144.0" text="Customer Name" />
+                <TableColumn fx:id="addressCol" prefWidth="151.0" text="Address" />
+                <TableColumn fx:id="divisionCol" prefWidth="143.0" text="Division" />
+                <TableColumn fx:id="postalCodeCol" prefWidth="207.0" text="Postal Code" />
+                <TableColumn fx:id="phoneCol" minWidth="0.0" prefWidth="150.0" text="Phone" />
+            <TableColumn fx:id="countryCol" maxWidth="133.0" prefWidth="88.0" text="Country" />
             </columns>
         </TableView>
         <Button fx:id="deleteCustomerButton" layoutX="700.0" layoutY="100.0" mnemonicParsing="false" onAction="#onActionDeleteCustomer" prefHeight="30.0" prefWidth="190.0" style="-fx-border-color: teal; -fx-border-width: 3;" text="DELETE CUSTOMER">

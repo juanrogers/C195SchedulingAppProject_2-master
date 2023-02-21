@@ -48,15 +48,41 @@ public class Country {
 
     }
 
+
+
+    /**
+     * Setters listed below
+     */
+
+
+
+    /**
+     * @param country_Id Setter for the country_Id
+     */
+    public void setCountry_Id(int country_Id) {
+
+        this.country_Id = country_Id;
+
+    }
+
+    /**
+     * @param countryName Setter for the countryName
+     */
+    public void setCountry(String countryName) {
+
+        this.countryName = countryName;
+
+    }
+
     /**
      * @return This will return a country name for use within a dropdown box.
-     */
+     *
     @Override
     public String toString() {
 
         return (countryName);
 
-    }
+    } */
 
 }
 

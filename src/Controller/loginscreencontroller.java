@@ -22,8 +22,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.chrono.ChronoLocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Optional;
@@ -104,10 +106,10 @@ public class loginscreencontroller implements Initializable {
      * -----> Lambda comment - I implemented a lambda expression to facilitate the filtering of the appointments list by user id to check for any within 15 minutes of login, for the user that is logging in.
      *
      * @param event clicking the sign in button
-     * @throws IOException
+     * @throws IOException SQLException
      */
     @FXML
-    void onActionSignin(ActionEvent event) throws IOException {
+    void onActionSignin(ActionEvent event) throws IOException, SQLException {
 
         String username = usernameTxtFld.getText();
         String password = passwordTxtFld.getText();
@@ -144,10 +146,12 @@ public class loginscreencontroller implements Initializable {
             boolean name = false;
 
             for (Appointment appt : uList) {
-                if (appt.getStart().toLocalDateTime().isAfter(now) && appt.getStart().toLocalDateTime().isBefore(now.plusMinutes(15))) {
+                ChronoLocalDateTime<?> localDateTime = null;
+                ChronoLocalDateTime<?> localDateTimePlus15 = null;
+                if (appt.getStartTime().isAfter(localDateTime) && appt.getStartTime().isBefore(localDateTimePlus15)); {
                     Alert alertUserMsg = new Alert(Alert.AlertType.ERROR);
                     alertUserMsg.setHeaderText("UPCOMING APPOINTMENT!");
-                    alertUserMsg.setContentText("You have an appointment scheduled within the next 15 minutes: Appointment " + appt.getAppointment_Id() + " at " + appt.getStart().toLocalDateTime());
+                    alertUserMsg.setContentText("You have an appointment scheduled within the next 15 minutes: Appointment " + appt.getAppointment_Id() + " at " + appt.getStartTime().toLocalTime());
                     alertUserMsg.showAndWait();
                     name = true;
                 }

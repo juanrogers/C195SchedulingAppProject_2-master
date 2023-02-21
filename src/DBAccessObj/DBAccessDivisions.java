@@ -1,5 +1,6 @@
 package DBAccessObj;
 
+import Model.Country;
 import Model.Division;
 import Utility.DBConnect;
 import javafx.collections.FXCollections;
@@ -13,11 +14,151 @@ import java.sql.*;
  * @author Ajuane Rogers*/
 public class DBAccessDivisions {
 
+    /** This method will get a list of Divisions.
+     * @return ObservableList List w/ Divisions
+     * @throws SQLException SQLException
+     */
+    public static ObservableList<Division> getAllDivisions() throws SQLException {
+
+        ObservableList<Division> divisions = FXCollections.observableArrayList();
+
+        String queryToDBStatement = "SELECT * FROM first_level_divisions;";
+
+        DBConnectQueryforPS.setPreparedStatement(DBConnect.connection(), queryToDBStatement);
+        PreparedStatement preparedStatement = DBConnectQueryforPS.getPreparedStatement();
+
+        try {
+
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+
+            while (resultSet.next()) {
+
+                Division newDiv = new Division(
+                        resultSet.getInt("Division_ID"),
+                        resultSet.getString("Division"),
+                        resultSet.getInt("COUNTRY_ID")
+                );
+
+                divisions.add(newDiv);
+
+            }
+
+            return divisions;
+
+        }
+
+        catch (Exception expt) {
+
+            System.out.println("Error: " + expt.getMessage());
+            return null;
+
+        }
+
+    }
+
+
+
+    /** This method will get a division base on division name.
+     * @param division division
+     * @return a division
+     * @throws SQLException SQLException
+     */
+    public static Division getADivisionId(String division) throws SQLException {
+
+        String queryToDBStatement = "SELECT * FROM first_level_divisions WHERE Division=?";
+
+        DBConnectQueryforPS.setPreparedStatement(DBConnect.connection(), queryToDBStatement);
+        PreparedStatement preparedStatement = DBConnectQueryforPS.getPreparedStatement();
+
+        preparedStatement.setString(1, division);
+
+        try {
+
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+
+            while (resultSet.next()) {
+
+                Division newDiv = new Division(
+                        resultSet.getInt("Division_ID"),
+                        resultSet.getString("Division"),
+                        resultSet.getInt("COUNTRY_ID")
+                );
+
+                return newDiv;
+
+            }
+
+        }
+
+        catch (Exception expt) {
+
+            System.out.println("Error: " + expt.getMessage());
+
+        }
+
+        return null;
+
+    }
+
+
+
+    /** This method will get a list of divisions base on country.
+     * @param country country
+     * @return a list containing divisions
+     * @throws SQLException SQLException
+     */
+    public static ObservableList<Division> getDivisionsByCountry(String country) throws SQLException {
+
+        Country newCout = DBAccessCountries.getACountryId(country);
+
+        ObservableList<Division> divisions = FXCollections.observableArrayList();
+
+        String queryToDBStatement = "SELECT * FROM first_level_divisions WHERE COUNTRY_ID=?;";
+
+        DBConnectQueryforPS.setPreparedStatement(DBConnect.connection(), queryToDBStatement);
+        PreparedStatement preparedStatement = DBConnectQueryforPS.getPreparedStatement();
+
+        preparedStatement.setInt(1, newCout.getCountry_Id());
+
+        try {
+
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+
+
+            while (resultSet.next()) {
+
+                Division newDiv = new Division(
+                        resultSet.getInt("Division_ID"),
+                        resultSet.getString("Division"),
+                        resultSet.getInt("COUNTRY_ID")
+                );
+
+                divisions.add(newDiv);
+
+            }
+
+            return divisions;
+
+        }
+
+        catch (Exception expt) {
+
+            System.out.println("Error: " + expt.getMessage());
+            return null;
+
+        }
+
+    }
+
+
     /**
      * This method returns all divisions located in the US.
      *
      * @return divisions that have a country Id as "1"
-     */
+     *
     public static ObservableList<Division> getUSDivisions() {
 
         ObservableList<Division> listOfUsDivisions = FXCollections.observableArrayList();
@@ -56,7 +197,7 @@ public class DBAccessDivisions {
      * This method returns all divisions located in the UK.
      *
      * @return divisions that have a country Id as "2"
-     */
+     *
     public static ObservableList<Division> getUKDivisions() {
 
         ObservableList<Division> listOfUKDivisions = FXCollections.observableArrayList();
@@ -97,7 +238,7 @@ public class DBAccessDivisions {
      * This method returns all divisions located in the Canada.
      *
      * @return divisions that have a country Id as "3"
-     */
+     *
     public static ObservableList<Division> getCANDivisions() {
 
         ObservableList<Division> listOfCANDivisions = FXCollections.observableArrayList();
@@ -130,7 +271,7 @@ public class DBAccessDivisions {
 
         return listOfCANDivisions;
 
-    }
+    } */
 
 }
 

@@ -25,6 +25,9 @@ public class User {
 
     }
 
+    public User() {
+
+    }
 
 
     /**
@@ -99,12 +102,12 @@ public class User {
 
     /**
      * @return This will return a user_Id & userName for use within a dropdown box.
-     */
+     *
     @Override
     public String toString() {
 
         return "[" + user_Id + "] " + userName;
 
-    }
+    } */
 
 }

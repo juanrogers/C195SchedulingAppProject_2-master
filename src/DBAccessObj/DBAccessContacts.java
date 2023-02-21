@@ -44,9 +44,9 @@ public class DBAccessContacts {
 
         }
 
-        catch (SQLException e) {
+        catch (SQLException expt) {
 
-            e.printStackTrace();
+            expt.printStackTrace();
 
         }
 
@@ -54,7 +54,53 @@ public class DBAccessContacts {
 
     }
 
+
+    /** This will method gets contacts from the database, based on the contact name.
+     * @param contactName contactName
+     * @return will return a contact
+     * @throws SQLException SQLException
+     */
+    public static Contact getContact_Id(String contactName) throws SQLException {
+
+        String queryToDBStatement = "SELECT * FROM contacts WHERE Contact_Name=?";
+
+        DBConnectQueryforPS.setPreparedStatement(DBConnect.connection(), queryToDBStatement);
+        PreparedStatement preparedStatement = DBConnectQueryforPS.getPreparedStatement();
+
+        preparedStatement.setString(1, contactName);
+
+        try {
+
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();;
+
+            while (resultSet.next()) {
+                Contact newCont = new Contact(
+                        resultSet.getInt("Contact_ID"),
+                        resultSet.getString("Contact_Name"),
+                        resultSet.getString("Email")
+                );
+
+                return newCont;
+
+            }
+
+        }
+
+        catch (Exception expt) {
+
+            System.out.println("Error: " + expt.getMessage());
+
+        }
+
+        return null;
+
+    }
+
 }
+
+
+
 
 
 

@@ -1,6 +1,8 @@
 package Model;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 /** This class will be used to handle appointments.
@@ -8,17 +10,19 @@ import java.sql.Timestamp;
  * @author Ajuane Rogers */
 public class Appointment {
 
-    public int appointment_Id;
-    public String title;
-    public String description;
-    public String location;
-    public String type;
-    public Timestamp start;
-    public Timestamp end;
-    public int customer_Id;
-    public int user_Id;
-    public int contact_Id;
-    //public String contactName;
+    private int appointment_Id;
+    private String title;
+    private String description;
+    private String location;
+    private String type;
+    private LocalDate startDate;
+    private LocalDateTime startTime;
+    private LocalDate endDate;
+    private LocalDateTime endTime;
+    private int customer_Id;
+    private int user_Id;
+    private int contact_Id;
+    private String contactName;
 
     /** This is the constructor used for building an appointment.
      *
@@ -27,32 +31,35 @@ public class Appointment {
      * @param description This holds the description of the appointment.
      * @param location This holds the location of the appointment.
      * @param type This holds the type of appointment.
-     * @param start This holds the start time and date of the appointment.
-     * @param end This holds the end time and date of the appointment.
+     * @param startDate This holds the start date of the appointment.
+     * @param startTime This holds the start time of the appointment.
+     * @param endDate This holds the end date of the appointment.
+     * @param endTime This holds the end time of the appointment.
      * @param customer_Id This holds the customer Id for the appointment.
      * @param user_Id This holds the user Id for with the appointment.
      * @param contact_Id This holds the contact Id for the appointment.
-    // @param contactName This holds the contact name for the appointment.
+     * @param contactName This holds the contact name for the appointment.
      */
-    public Appointment (int appointment_Id, String title, String description, String location, String type, Timestamp start, Timestamp end, int customer_Id, int user_Id, int contact_Id) {
+    public Appointment (int appointment_Id, String title, String description, String location, String type, LocalDate startDate, LocalDateTime startTime, LocalDate endDate, LocalDateTime endTime, int customer_Id, int user_Id, int contact_Id, String contactName) {
 
         this.appointment_Id = appointment_Id;
         this.title = title;
         this.description = description;
         this.location = location;
         this.type = type;
-        this.start = start;
-        this.end = end;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.endDate = endDate;
+        this.endTime = endTime;
         this.customer_Id = customer_Id;
         this.user_Id = user_Id;
         this.contact_Id = contact_Id;
-        //this.contactName = contactName;
+        this.contactName = contactName;
 
     }
 
-    public Appointment(int appointment_id, String title, String description, String location, int contact_id, String contactName, String type, Timestamp startTime, Timestamp endTime, int custId, int user_id) {
-
-    }
+   // public Appointment(int appointment_id, String title, String description, String location, int contact_id, String contactName, String type, Timestamp startTime, Timestamp endTime, int custId, int user_id) {
+   // }
 
 
 
@@ -110,20 +117,39 @@ public class Appointment {
     /**
      * @return will return the start
      */
-    public Timestamp getStart() {
+    public LocalDate getStartDate() {
 
-        return start;
+        return startDate;
 
     }
 
     /**
      * @return will return the end
      */
-    public Timestamp getEnd() {
+    public LocalDateTime getStartTime() {
 
-        return end;
+        return startTime;
 
     }
+
+    /**
+     * @return will return the start
+     */
+    public LocalDate getEndDate() {
+
+        return getEndDate();
+
+    }
+
+    /**
+     * @return will return the end
+     */
+    public LocalDateTime getEndTime() {
+
+        return endTime;
+
+    }
+
 
     /**
      * @return Getter for the customer_Id
@@ -155,9 +181,11 @@ public class Appointment {
     /**
      * @return Getter for the contactName
      */
-    //public String getContactName() {
-    //    return contactName;
-    // }
+    public String getContactName() {
+
+        return contactName;
+
+     }
 
 
 
@@ -213,20 +241,38 @@ public class Appointment {
     }
 
     /**
-     * @param start Setter for the start
+     * @param startDate Setter for the start date
      */
-    public void setStart(Timestamp start) {
+    public void setStartDate(LocalDate startDate) {
 
-        this.start = start;
+        this.startDate = startDate;
 
     }
 
     /**
-     * @param end Setter for the end
+     * @param startTime Setter for the start time
      */
-    public void setEnd(Timestamp end) {
+    public void setStartTime(LocalDateTime startTime) {
 
-        this.end = end;
+        this.startTime = startTime;
+
+    }
+
+    /**
+     * @param endDate Setter for the end date
+     */
+    public void setEndDate(LocalDate endDate) {
+
+        this.endDate = endDate;
+
+    }
+
+    /**
+     * @param endTime Setter for the end time
+     */
+    public void setEndTime(LocalDateTime endTime) {
+
+        this.endTime = endTime;
 
     }
 
@@ -260,8 +306,10 @@ public class Appointment {
     /**
      * @param contactName Setter for the contactName
      */
-    //public void setContactName(String contactName) {
-    //    this.contactName = contactName;
-    //}
+    public void setContactName(String contactName) {
+
+        this.contactName = contactName;
+
+    }
 
 }
