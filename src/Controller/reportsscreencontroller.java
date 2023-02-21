@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 
@@ -191,7 +192,7 @@ public class reportsscreencontroller implements Initializable {
     @FXML
     void onActionNumOfCustGenRep(ActionEvent event) throws SQLException {
 
-        numOfTotCustResultLabel.setText(String.valueOf(DBAccessCustomers.getAllCustomers().size()));
+        numOfTotCustResultLabel.setText(String.valueOf((DBAccessCustomers.getAllCustomers()).size()));
 
     }
 

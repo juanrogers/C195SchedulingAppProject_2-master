@@ -37,7 +37,7 @@ public class DBAccessDivisions {
                 Division newDiv = new Division(
                         resultSet.getInt("Division_ID"),
                         resultSet.getString("Division"),
-                        resultSet.getInt("COUNTRY_ID")
+                        resultSet.getInt("Country_ID")
                 );
 
                 divisions.add(newDiv);
@@ -83,7 +83,7 @@ public class DBAccessDivisions {
                 Division newDiv = new Division(
                         resultSet.getInt("Division_ID"),
                         resultSet.getString("Division"),
-                        resultSet.getInt("COUNTRY_ID")
+                        resultSet.getInt("Country_ID")
                 );
 
                 return newDiv;
@@ -133,7 +133,7 @@ public class DBAccessDivisions {
                 Division newDiv = new Division(
                         resultSet.getInt("Division_ID"),
                         resultSet.getString("Division"),
-                        resultSet.getInt("COUNTRY_ID")
+                        resultSet.getInt("Country_ID")
                 );
 
                 divisions.add(newDiv);

@@ -106,7 +106,6 @@ public class updateappointmentscreencontroller implements Initializable {
     private Button cancelUpdateAppointmentButton;
 
 
-
     /**
      * Variables for stages and scenes.
      */
@@ -114,126 +113,169 @@ public class updateappointmentscreencontroller implements Initializable {
     Parent scene;
 
 
-
     /**
      * Declared methods (not yet defined)
-     *
      */
     @FXML
-    void onActionApptIdTxtFld(){
+    void onActionApptIdTxtFld() {
 
-    };
+    }
 
-    @FXML
-    void onActionTitleTxtFld(){
-
-    };
+    ;
 
     @FXML
-    void onActionDescriptionTxtFld(){
+    void onActionTitleTxtFld() {
 
-    };
+    }
 
-    @FXML
-    void onActionLocationTxtFld (){
-
-    };
+    ;
 
     @FXML
-    void onActionConDropDownBox(){
+    void onActionDescriptionTxtFld() {
 
-    };
+    }
 
-    @FXML
-    void onActionTypeTxtFld (){
-
-    };
+    ;
 
     @FXML
-    void onActionSrtTimeDropDownBox(){
+    void onActionLocationTxtFld() {
 
-    };
+    }
 
-    @FXML
-    void onActionEndTimeDropDownBox(){
-
-    };
+    ;
 
     @FXML
-    void onActionDatePicker(){
+    void onActionConDropDownBox() {
 
-    };
+    }
 
-    @FXML
-    void onActionCustIdTxtFld(){
-
-    };
+    ;
 
     @FXML
-    void onActionUserIdDropDownBox (){
+    void onActionTypeTxtFld() {
 
-    };
+    }
 
-    @FXML
-    void onActionSaveUpdateAppt (){
-
-    };
+    ;
 
     @FXML
-    void onActionApptTxtFld (){
+    void onActionSrtTimeDropDownBox() {
 
-    };
+    }
 
-    @FXML
-    void onActionSaveUpdatedAppointment (){
-
-    };
+    ;
 
     @FXML
-    void onActionCancelUpdateAppointment (){
+    void onActionEndTimeDropDownBox() {
 
-    };
+    }
 
-    @FXML
-    void onActionDescriptTxtFld (){
-
-    };
+    ;
 
     @FXML
-    void onActionContactDropDownBox (){
+    void onActionDatePicker() {
 
-    };
+    }
 
-    @FXML
-    void onActionStartTimeDropDownBox (){
-
-    };
+    ;
 
     @FXML
-    void onActionTypeDropDownBox (){
+    void onActionCustIdTxtFld() {
 
-    };
+    }
 
-    @FXML
-    void onActionCustIdDropDownBox (){
-
-    };
+    ;
 
     @FXML
-    void onActionStartDatePicker (){
+    void onActionUserIdDropDownBox() {
 
-    };
+    }
 
-    @FXML
-    void onActionEndDatePicker (){
-
-    };
+    ;
 
     @FXML
-    void onActionCancelUpdateAppt (){
+    void onActionSaveUpdateAppt() {
 
-    };
+    }
 
+    ;
+
+    @FXML
+    void onActionApptTxtFld() {
+
+    }
+
+    ;
+
+    @FXML
+    void onActionSaveUpdatedAppointment() {
+
+    }
+
+    ;
+
+    @FXML
+    void onActionCancelUpdateAppointment() {
+
+    }
+
+    ;
+
+    @FXML
+    void onActionDescriptTxtFld() {
+
+    }
+
+    ;
+
+    @FXML
+    void onActionContactDropDownBox() {
+
+    }
+
+    ;
+
+    @FXML
+    void onActionStartTimeDropDownBox() {
+
+    }
+
+    ;
+
+    @FXML
+    void onActionTypeDropDownBox() {
+
+    }
+
+    ;
+
+    @FXML
+    void onActionCustIdDropDownBox() {
+
+    }
+
+    ;
+
+    @FXML
+    void onActionStartDatePicker() {
+
+    }
+
+    ;
+
+    @FXML
+    void onActionEndDatePicker() {
+
+    }
+
+    ;
+
+    @FXML
+    void onActionCancelUpdateAppt() {
+
+    }
+
+    ;
 
 
     /**
@@ -245,13 +287,13 @@ public class updateappointmentscreencontroller implements Initializable {
 
     private ZonedDateTime EndDateTimeConvert;
 
-    Appointment appointment2;
+    private Appointment appt;
+    Appointment appointment = appt;
 
 
-
-
-
-    /** These methods will be used time to Eastern Standard.
+    /**
+     * These methods will be used time to Eastern Standard.
+     *
      * @param timeConvert timeConvert
      * @return will return time converted to Eastern Standard
      */
@@ -268,22 +310,20 @@ public class updateappointmentscreencontroller implements Initializable {
     }
 
 
-
     /**
      * This method will input a value into customer Id text field from a selected customer in the table.
      *
      * @param event clicking on customer in the table
      *
-    @FXML
-    void onMouseClickInputToCustTxtFld(MouseEvent event) {
+     @FXML void onMouseClickInputToCustTxtFld(MouseEvent event) {
 
-        customerIdTxtFld.setText(String.valueOf(customerTable.getSelectionModel().getSelectedItem().getCustomer_Id()));
+     customerIdTxtFld.setText(String.valueOf(customerTable.getSelectionModel().getSelectedItem().getCustomer_Id()));
 
-    } */
-
+     } */
 
 
-    /** This method will update the appointment in database, and after appointment is updated, will take user back to the appointments screen.
+    /**
+     * This method will update the appointment in database, and after appointment is updated, will take user back to the appointments screen.
      *
      * @param event clicking save button
      * @throws IOException
@@ -325,9 +365,7 @@ public class updateappointmentscreencontroller implements Initializable {
                             stage.setScene(new Scene(scene));
                             stage.show();
 
-                        }
-
-                        catch (Exception expt) {
+                        } catch (Exception expt) {
 
                             expt.printStackTrace();
                             alertUserMsg = new Alert(Alert.AlertType.ERROR);
@@ -338,18 +376,14 @@ public class updateappointmentscreencontroller implements Initializable {
 
                     }
 
-                }
-
-                else {
+                } else {
 
                     Alert alert = new Alert(Alert.AlertType.ERROR, "The appointment was not updated. Please try again.");
                     Optional<ButtonType> result = alert.showAndWait();
 
                 }
 
-            }
-
-            catch (Exception expt) {
+            } catch (Exception expt) {
                 expt.printStackTrace();
 
             }
@@ -359,8 +393,8 @@ public class updateappointmentscreencontroller implements Initializable {
     }
 
 
-
-    /** This method will cancel the "update appointment" action, and send user back to the appointments screen.
+    /**
+     * This method will cancel the "update appointment" action, and send user back to the appointments screen.
      *
      * @param event clicking cancel button
      * @throws IOException
@@ -386,7 +420,9 @@ public class updateappointmentscreencontroller implements Initializable {
     }
 
 
-    /** This method will send the appointment selected in table to update appointment screen.
+    /**
+     * This method will send the appointment selected in table to update appointment screen.
+     *
      * @param appointment appointment
      */
     public static void appointmentToBeSentToUpdate(Appointment appointment) {
@@ -396,9 +432,8 @@ public class updateappointmentscreencontroller implements Initializable {
     }
 
 
-
-    /** This method will set the pre-determined meeting types for type dropdown box.
-     *
+    /**
+     * This method will set the pre-determined meeting types for type dropdown box.
      */
     private void createOptionsForTypeDropDownBox() {
 
@@ -412,9 +447,8 @@ public class updateappointmentscreencontroller implements Initializable {
     }
 
 
-
-    /** This method will set options contact dropdown box.
-     *
+    /**
+     * This method will set options contact dropdown box.
      */
     private void prePopContactDropDownBox() {
 
@@ -422,9 +456,9 @@ public class updateappointmentscreencontroller implements Initializable {
 
         ObservableList<Contact> contactsInBox = DBAccessContacts.getAllContacts();
 
-        if (contactsInBox != null){
+        if (contactsInBox != null) {
 
-            for (Contact contact: contactsInBox) {
+            for (Contact contact : contactsInBox) {
 
                 if (!optionsForContact.contains(contact.getContactName())) {
 
@@ -441,9 +475,8 @@ public class updateappointmentscreencontroller implements Initializable {
     }
 
 
-
-    /** This method will set options customer_Id dropdown box.
-     *
+    /**
+     * This method will set options customer_Id dropdown box.
      */
     private void prePopCustIdDropDownBox() {
 
@@ -455,16 +488,14 @@ public class updateappointmentscreencontroller implements Initializable {
 
             if (customersInBox != null) {
 
-                for (Customer customer: customersInBox) {
+                for (Customer customer : customersInBox) {
 
                     optionsForCustomerId.add(customer.getCustomer_Id());
 
                 }
             }
 
-        }
-
-        catch (SQLException expt) {
+        } catch (SQLException expt) {
 
             expt.printStackTrace();
 
@@ -475,9 +506,8 @@ public class updateappointmentscreencontroller implements Initializable {
     }
 
 
-
-    /** This method will set options user_Id dropdown box.
-     *
+    /**
+     * This method will set options user_Id dropdown box.
      */
     private void prePopUserIdDropDownBox() {
 
@@ -487,7 +517,7 @@ public class updateappointmentscreencontroller implements Initializable {
 
         if (usersInBox != null) {
 
-            for (User user: usersInBox) {
+            for (User user : usersInBox) {
 
                 optionsForUserId.add(user.getUser_Id());
 
@@ -500,9 +530,8 @@ public class updateappointmentscreencontroller implements Initializable {
     }
 
 
-
-    /** This method will set the pre-determined time increments for time drop down boxes.
-     *
+    /**
+     * This method will set the pre-determined time increments for time drop down boxes.
      */
     private void prePopTimeDropDownBoxes() {
 
@@ -525,7 +554,6 @@ public class updateappointmentscreencontroller implements Initializable {
     }
 
 
-
     /**
      * This method will send the appointment selected in table to update appointment screen.
      *
@@ -533,61 +561,63 @@ public class updateappointmentscreencontroller implements Initializable {
      *
     public void appointmentToBeSentToUpdate(Appointment appointment) {
 
-        this.appointment = appointment;
+    this.appointment = appointment;
 
-        appointmentIdTxtFld.setText(Integer.toString(appointment.getAppointment_Id()));
-        titleTxtFld.setText(appointment.getTitle());
-        descriptionTxtFld.setText(appointment.getDescription());
-        locationTxtFld.setText(appointment.getLocation());
+    appointmentIdTxtFld.setText(Integer.toString(appointment.getAppointment_Id()));
+    titleTxtFld.setText(appointment.getTitle());
+    descriptionTxtFld.setText(appointment.getDescription());
+    locationTxtFld.setText(appointment.getLocation());
 
-        for (Contact cont : contactDropDownBox.getItems()) {
+    for (Contact cont : contactDropDownBox.getItems()) {
 
-            if (appointment.contact_Id == cont.getContact_Id()) {
+    if (appointment.contact_Id == cont.getContact_Id()) {
 
-                contactDropDownBox.setValue(cont);
+    contactDropDownBox.setValue(cont);
 
-                break;
+    break;
 
-            }
+    }
 
-        }
+    }
 
-        typeTxtFld.setText(appointment.getType());
+    typeTxtFld.setText(appointment.getType());
 
-        LocalTime setStartTime = appointment.getStart().toLocalDateTime().toLocalTime();
-        startTimeDropDownBox.setValue(setStartTime);
-        LocalTime setEndTime = appointment.getEnd().toLocalDateTime().toLocalTime();
-        endTimeDropDownBox.setValue(setEndTime);
+    LocalTime setStartTime = appointment.getStart().toLocalDateTime().toLocalTime();
+    startTimeDropDownBox.setValue(setStartTime);
+    LocalTime setEndTime = appointment.getEnd().toLocalDateTime().toLocalTime();
+    endTimeDropDownBox.setValue(setEndTime);
 
-        LocalDate appointmentDate = appointment.getStart().toLocalDateTime().toLocalDate();
-        datePicker.setValue(appointmentDate);
+    LocalDate appointmentDate = appointment.getStart().toLocalDateTime().toLocalDate();
+    datePicker.setValue(appointmentDate);
 
-        customerIdTxtFld.setText(String.valueOf(appointment.getCustomer_Id()));
+    customerIdTxtFld.setText(String.valueOf(appointment.getCustomer_Id()));
 
-        for (User user : userIdDropDownBox.getItems()) {
+    for (User user : userIdDropDownBox.getItems()) {
 
-            if (appointment.user_Id == user.getUser_Id()) {
+    if (appointment.user_Id == user.getUser_Id()) {
 
-                userIdDropDownBox.setValue(user);
+    userIdDropDownBox.setValue(user);
 
-                break;
+    break;
 
-            }
+    }
 
-        }
+    }
 
     }  */
 
 
-    /** This method will assist in checking to see if the all fields and drop down boxes are filled by customer input.
+    /**
+     * This method will assist in checking to see if the all fields and drop down boxes are filled by customer input.
      * Also checks for overlapping appointments, and to see if an appointment is being schedule outside of business hours.
-     * @param title title
-     * @param description description
-     * @param location location
+     *
+     * @param title          title
+     * @param description    description
+     * @param location       location
      * @param appointment_Id appointment_Id
      * @return will returns true: if all checks are true, false: if not
      */
-    private boolean checkApptToBeSave(String title, String description, String location, String appointment_Id){
+    private boolean checkApptToBeSave(String title, String description, String location, String appointment_Id) {
 
         if (appointment_Id.isEmpty()) {
 
@@ -599,7 +629,7 @@ public class updateappointmentscreencontroller implements Initializable {
 
         }
 
-        if (title.isEmpty()){
+        if (title.isEmpty()) {
 
             Alert alertUserMsg2 = new Alert(Alert.AlertType.ERROR);
             alertUserMsg2.setTitle("Error!");
@@ -609,7 +639,7 @@ public class updateappointmentscreencontroller implements Initializable {
 
         }
 
-        if (description.isEmpty()){
+        if (description.isEmpty()) {
 
             Alert alertUserMsg3 = new Alert(Alert.AlertType.ERROR);
             alertUserMsg3.setTitle("Error!");
@@ -619,7 +649,7 @@ public class updateappointmentscreencontroller implements Initializable {
 
         }
 
-        if (location.isEmpty()){
+        if (location.isEmpty()) {
 
             Alert alertUserMsg4 = new Alert(Alert.AlertType.ERROR);
             alertUserMsg4.setTitle("Error!");
@@ -629,7 +659,7 @@ public class updateappointmentscreencontroller implements Initializable {
 
         }
 
-        if (contactDropDownBox.getSelectionModel().isEmpty()){
+        if (contactDropDownBox.getSelectionModel().isEmpty()) {
 
             Alert alertUserMsg = new Alert(Alert.AlertType.ERROR);
             alertUserMsg.setTitle("Error!");
@@ -659,7 +689,7 @@ public class updateappointmentscreencontroller implements Initializable {
 
         }
 
-        if (startTimeDropDownBox.getSelectionModel().isEmpty()){
+        if (startTimeDropDownBox.getSelectionModel().isEmpty()) {
 
             Alert alertUserMsg8 = new Alert(Alert.AlertType.ERROR);
             alertUserMsg8.setTitle("Error!");
@@ -669,7 +699,7 @@ public class updateappointmentscreencontroller implements Initializable {
 
         }
 
-        if (endDatePicker.getValue() == null){
+        if (endDatePicker.getValue() == null) {
 
             Alert alertUserMsg9 = new Alert(Alert.AlertType.ERROR);
             alertUserMsg9.setTitle("Error!");
@@ -689,7 +719,7 @@ public class updateappointmentscreencontroller implements Initializable {
 
         }
 
-        if (endTimeDropDownBox.getSelectionModel().isEmpty()){
+        if (endTimeDropDownBox.getSelectionModel().isEmpty()) {
 
             Alert alertUserMsg11 = new Alert(Alert.AlertType.ERROR);
             alertUserMsg11.setTitle("Error!");
@@ -720,7 +750,6 @@ public class updateappointmentscreencontroller implements Initializable {
         }
 
 
-
         LocalTime startTime = LocalTime.parse(startTimeDropDownBox.getSelectionModel().getSelectedItem());
         LocalTime endTime = LocalTime.parse(endTimeDropDownBox.getSelectionModel().getSelectedItem());
 
@@ -737,7 +766,7 @@ public class updateappointmentscreencontroller implements Initializable {
 
         }
 
-        if (!(startDate == endDate)){
+        if (!(startDate == endDate)) {
 
             Alert alertUserMsg15 = new Alert(Alert.AlertType.ERROR);
             alertUserMsg15.setTitle("Error!");
@@ -746,7 +775,6 @@ public class updateappointmentscreencontroller implements Initializable {
             return false;
 
         }
-
 
 
         LocalDateTime selectedStart = startDate.atTime(startTime);
@@ -760,7 +788,7 @@ public class updateappointmentscreencontroller implements Initializable {
 
             ObservableList<Appointment> appointments = DBAccessAppointments.getApptsByCustomerId(customerIdDropDownBox.getSelectionModel().getSelectedItem());
 
-            for (Appointment appt: appointments) {
+            for (Appointment appt : appointments) {
 
                 intendedApptStart = appt.getStartDate().atTime(appt.getStartTime().toLocalTime());
                 intendedApptEnd = appt.getEndDate().atTime(appt.getEndTime().toLocalTime());
@@ -773,9 +801,7 @@ public class updateappointmentscreencontroller implements Initializable {
                     alertUserMsg16.showAndWait();
                     return false;
 
-                }
-
-                else if (intendedApptEnd.isAfter(selectedStart) && intendedApptEnd.isBefore(selectedEnd)) {
+                } else if (intendedApptEnd.isAfter(selectedStart) && intendedApptEnd.isBefore(selectedEnd)) {
 
                     Alert alertUserMsg17 = new Alert(Alert.AlertType.ERROR);
                     alertUserMsg17.setTitle("Error!");
@@ -787,20 +813,15 @@ public class updateappointmentscreencontroller implements Initializable {
 
             }
 
-        }
-
-        catch (SQLException expt) {
+        } catch (SQLException expt) {
 
             expt.printStackTrace();
 
         }
 
 
-
         StartDateTimeConvert = convertToEastStdTime(LocalDateTime.of(startDatePicker.getValue(), LocalTime.parse(startTimeDropDownBox.getSelectionModel().getSelectedItem())));
         EndDateTimeConvert = convertToEastStdTime(LocalDateTime.of(endDatePicker.getValue(), LocalTime.parse(endTimeDropDownBox.getSelectionModel().getSelectedItem())));
-
-
 
 
         if (StartDateTimeConvert.toLocalTime().isAfter(LocalTime.of(22, 0))) {
@@ -848,11 +869,10 @@ public class updateappointmentscreencontroller implements Initializable {
     }
 
 
-
     /**
      * This method initializes the update appointment screen with data from customers table from customers screen, set choices in drop down boxes, and convert time between local.
      *
-     * @param url the location
+     * @param url            the location
      * @param resourceBundle the resources
      */
     @Override
@@ -864,11 +884,62 @@ public class updateappointmentscreencontroller implements Initializable {
         prePopUserIdDropDownBox();
         prePopTimeDropDownBoxes();
 
-        try {
 
-            Appointment appt = DBAccessAppointments.getApptsByCustomerId(appointmentToUpdate.getAppointment_Id());
 
-            ZonedDateTime zonedStartTime = convertToTimeZone(appt.getStartDate().atTime(appt.getStartTime().toLocalTime()), String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+       /* try {
+
+            Appointment appt = new Appointment(int appointment_Id, String title, String description, String location, String type, LocalDate startDate, LocalDateTime startTime, LocalDate endDate, LocalDateTime endTime, int customer_Id, int user_Id, int contact_Id, String contactName) {
+)
+
+                ZonedDateTime zonedStartTime = convertToTimeZone(appt.getStartDate().atTime(appt.getStartTime().toLocalTime()), String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
             ZonedDateTime zonedEndTime = convertToTimeZone(appt.getEndDate().atTime(appt.getEndTime().toLocalTime()), String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
 
             if (appt != null) {
@@ -896,10 +967,10 @@ public class updateappointmentscreencontroller implements Initializable {
 
         }
 
-    }
+    } */
 
 
-}
+
 
       /*  customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
@@ -947,9 +1018,9 @@ public class updateappointmentscreencontroller implements Initializable {
 
         }
 
-    }  */
+    } */
 
-
+}
 
 
 

@@ -111,6 +111,9 @@ public class loginscreencontroller implements Initializable {
     @FXML
     void onActionSignin(ActionEvent event) throws IOException, SQLException {
 
+        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDateTime localDateTimePlus15 = localDateTime.plusMinutes(15);
+
         String username = usernameTxtFld.getText();
         String password = passwordTxtFld.getText();
 
@@ -146,10 +149,8 @@ public class loginscreencontroller implements Initializable {
             boolean name = false;
 
             for (Appointment appt : uList) {
-                ChronoLocalDateTime<?> localDateTime = null;
-                ChronoLocalDateTime<?> localDateTimePlus15 = null;
                 if (appt.getStartTime().isAfter(localDateTime) && appt.getStartTime().isBefore(localDateTimePlus15)); {
-                    Alert alertUserMsg = new Alert(Alert.AlertType.ERROR);
+                    Alert alertUserMsg = new Alert(Alert.AlertType.INFORMATION);
                     alertUserMsg.setHeaderText("UPCOMING APPOINTMENT!");
                     alertUserMsg.setContentText("You have an appointment scheduled within the next 15 minutes: Appointment " + appt.getAppointment_Id() + " at " + appt.getStartTime().toLocalTime());
                     alertUserMsg.showAndWait();

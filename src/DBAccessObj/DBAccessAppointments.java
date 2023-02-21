@@ -265,7 +265,9 @@ public class DBAccessAppointments {
         preparedStatement.setTimestamp(5, Timestamp.valueOf(start));
         preparedStatement.setTimestamp(6, Timestamp.valueOf(end));
         preparedStatement.setInt(7, customer_Id);
-        preparedStatement.setInt(8, cont.getContact_Id());
+        if (cont != null) {
+            preparedStatement.setInt(8, cont.getContact_Id());
+        }
         preparedStatement.setInt(9, user_Id);
 
         try {

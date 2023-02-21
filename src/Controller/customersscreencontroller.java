@@ -297,7 +297,7 @@ public class customersscreencontroller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
 
-     /*   try {
+        try {
 
             custs = DBAccessCustomers.getAllCustomers();
             customerTable.setItems(custs);
@@ -315,8 +315,10 @@ public class customersscreencontroller implements Initializable {
 
             e.printStackTrace();
 
-        }  */
+        }
 
+
+        /*
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));
@@ -334,7 +336,7 @@ public class customersscreencontroller implements Initializable {
         catch (SQLException throwables) {
 
             throwables.printStackTrace();
-        }
+        }  */
 
     }
 

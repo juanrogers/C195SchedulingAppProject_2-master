@@ -324,12 +324,11 @@ public class addappointmentscreencontroller implements Initializable {
     /** This method will set the pre-determined meeting types for type dropdown box.
      *
      */
-    private void createOptionsForTypeDropDownBox() {
+    private void prePopForTypeDropDownBox() {
 
         ObservableList<String> optionsForAppts = FXCollections.observableArrayList();
 
-        optionsForAppts.addAll("Quick Meeting", "De-Briefing", "Follow-up", "1-on-1", "Open Session", "Group Meeting", "Planning Meeting", "Breakfast Meeting", "Lunch Meeting");
-
+        optionsForAppts.addAll("Quick Meeting", "De-Briefing", "Follow-up", "1-on-1", "Open Session", "Group Meeting", "Planning Meeting", "Breakfast Meeting", "Lunch Meeting", "Dinner Meeting");
 
         typeDropDownBox.setItems(optionsForAppts);
 
@@ -491,7 +490,7 @@ public class addappointmentscreencontroller implements Initializable {
      */
     private boolean checkApptToBeSave(String title, String description, String location, String appointment_Id){
 
-        if (appointment_Id.isEmpty()) {
+       /* if (appointment_Id.isEmpty()) {
 
             Alert alertUserMsg6 = new Alert(Alert.AlertType.ERROR);
             alertUserMsg6.setTitle("Error!");
@@ -499,7 +498,7 @@ public class addappointmentscreencontroller implements Initializable {
             alertUserMsg6.showAndWait();
             return false;
 
-        }
+        } */
 
         if (title.isEmpty()){
 
@@ -601,7 +600,7 @@ public class addappointmentscreencontroller implements Initializable {
 
         }
 
-        if (customerIdDropDownBox.getSelectionModel().isEmpty()) {
+       /* if (customerIdDropDownBox.getSelectionModel().isEmpty()) {
 
             Alert alertUserMsg12 = new Alert(Alert.AlertType.ERROR);
             alertUserMsg12.setTitle("Error!");
@@ -609,7 +608,7 @@ public class addappointmentscreencontroller implements Initializable {
             alertUserMsg12.showAndWait();
             return false;
 
-        }
+        }  */
 
         if (userIdDropDownBox.getSelectionModel().isEmpty()) {
 
@@ -639,7 +638,7 @@ public class addappointmentscreencontroller implements Initializable {
 
         }
 
-        if (!(startDate == endDate)){
+        if (!startDate.equals(endDate)){
 
             Alert alertUserMsg15 = new Alert(Alert.AlertType.ERROR);
             alertUserMsg15.setTitle("Error!");
@@ -760,6 +759,7 @@ public class addappointmentscreencontroller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        prePopForTypeDropDownBox();
         prePopTimeDropDownBoxes();
         prePopContactDropDownBox();
         prePopCustIdDropDownBox();
