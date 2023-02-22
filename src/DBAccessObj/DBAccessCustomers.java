@@ -23,7 +23,7 @@ public class DBAccessCustomers {
 
         ObservableList<Customer> customers = FXCollections.observableArrayList();
 
-        String queryToDBStatement = "SELECT * FROM customers AS custs INNER JOIN first_level_divisions AS fld ON custs.Division_ID = fld.Division_ID INNER JOIN countries AS cout ON cout.Country_ID=d.COUNTRY_ID;";
+        String queryToDBStatement = "SELECT * FROM customers AS custs INNER JOIN first_level_divisions AS fld ON custs.Division_ID = fld.Division_ID INNER JOIN countries AS cout ON cout.Country_ID=d.Country_ID;";
 
         DBConnectQueryforPS.setPreparedStatement(DBConnect.connection(), queryToDBStatement);
         PreparedStatement preparedStatement = DBConnectQueryforPS.getPreparedStatement();
