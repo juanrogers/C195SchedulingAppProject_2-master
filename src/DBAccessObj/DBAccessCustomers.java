@@ -21,9 +21,49 @@ public class DBAccessCustomers {
      */
     public static ObservableList<Customer> getAllCustomers() throws SQLException {
 
-        ObservableList<Customer> customers = FXCollections.observableArrayList();
 
-        String queryToDBStatement = "SELECT * FROM customers AS custs INNER JOIN first_level_divisions AS fld ON custs.Division_ID = fld.Division_ID INNER JOIN countries AS cout ON cout.Country_ID=d.Country_ID;";
+        ObservableList<Customer> listOfCustomers = FXCollections.observableArrayList();
+
+        try {
+
+            String sqlGetCusts = "SELECT Customer_ID, Customer_Name, Address, Postal_Code, Phone, customers.Division_ID, " +
+                    "first_level_divisions.COUNTRY_ID, first_level_divisions.Division FROM customers, first_level_divisions WHERE customers.Division_ID = first_level_divisions.Division_ID ORDER BY Customer_ID";
+
+            PreparedStatement preState = DBConnect.connection().prepareStatement(sqlGetCusts);
+            ResultSet resultSet = preState.executeQuery();
+
+            while (resultSet.next()) {
+
+                int customer_Id = resultSet.getInt("Customer_ID");
+                String customerName = resultSet.getString("Customer_Name");
+                String address = resultSet.getString("Address");
+                String postalCode = resultSet.getString("Postal_Code");
+                String phone = resultSet.getString("Phone");
+                int division_Id = resultSet.getInt("Division_ID");
+                int country_Id = resultSet.getInt("COUNTRY_ID");
+                String divisionName = resultSet.getString("Division");
+
+                //Customer custs = new Customer(customer_Id, customerName, address, postalCode, phone, country_Id, division_Id);
+               // listOfCustomers.add(custs);
+
+            }
+
+        }
+
+        catch (SQLException e) {
+
+            e.printStackTrace();
+
+        }
+
+        return listOfCustomers;
+
+      /*  ObservableList<Customer> customers = FXCollections.observableArrayList();
+
+        String queryToDBStatement =  "SELECT Customer_ID, Customer_Name, Address, Postal_Code, Phone, customers.Division_ID, " +
+                "first_level_divisions.COUNTRY_ID, first_level_divisions.Division FROM customers, first_level_divisions WHERE customers.Division_ID = first_level_divisions.Division_ID ORDER BY Customer_ID";
+
+       // String queryToDBStatement = "SELECT * FROM customers AS custs INNER JOIN first_level_divisions AS fld ON custs.Division_ID = fld.Division_ID INNER JOIN countries AS cout ON cout.Country_ID=d.Country_ID;";
 
         DBConnectQueryforPS.setPreparedStatement(DBConnect.connection(), queryToDBStatement);
         PreparedStatement preparedStatement = DBConnectQueryforPS.getPreparedStatement();
@@ -59,7 +99,7 @@ public class DBAccessCustomers {
             System.out.println("Error: " + expt.getMessage());
             return null;
 
-        }
+        }  */
 
     }
 
